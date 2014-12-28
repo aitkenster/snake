@@ -25,4 +25,9 @@ describe Snake do
   it 'starts off facing north' do 
     expect(nagini.bearing).to eq(0)
   end
+
+  it 'can change direction' do 
+    nagini.change_bearing(270)
+    expect(nagini.bearing).to eq(270)
+  end
 end

@@ -19,4 +19,7 @@ class Snake
     self.length += 1
   end
 
+  def change_bearing(bearing)
+    self.bearing = bearing
+  end
 end
