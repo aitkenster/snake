@@ -9,6 +9,12 @@ describe 'vertabrae' do
   end
 
   it 'has a position when created' do
-    expect(lumbar.position).to eq([4,1]) 
+    expect(lumbar.position).to eq({ x_coord: 4, y_coord: 1})
+  end 
+
+  it 'can update its position and direction' do 
+    lumbar.update_position(180, 5,1)
+    expect(lumbar.direction).to eq(180)
+    expect(lumbar.position[:x_coord]).to eq(5)
   end
 end
