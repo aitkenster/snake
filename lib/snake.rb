@@ -1,10 +1,11 @@
 class Snake
 
-  attr_accessor :length, :dead, :bearing
+  attr_accessor :vertabrae, :dead, :bearing
   def initialize
     @bearing = 0
-    @length = 1
+    @vertabrae = []
     @dead = false
+    grow(@bearing, 3, 3)
   end
 
   def dead?
@@ -15,8 +16,8 @@ class Snake
     self.dead = true
   end
 
-  def grow 
-    self.length += 1
+  def grow(bearing, x_coord, y_coord)
+    @vertabrae.push(Vertabrae.new(bearing, x_coord, y_coord))
   end
 
   def change_bearing(bearing)
