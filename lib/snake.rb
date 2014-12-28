@@ -13,4 +13,8 @@ class Snake
   def kill
     self.dead = true
   end
+
+  def grow 
+    self.length += 1
+  end
 end

@@ -16,4 +16,9 @@ describe Snake do
     nagini.kill
     expect(nagini.dead?).to be true
   end
+
+  it 'increases in length' do 
+    nagini.grow
+    expect(nagini.length).to eq(2)
+  end
 end
