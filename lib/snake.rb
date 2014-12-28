@@ -1,7 +1,8 @@
 class Snake
 
-  attr_accessor :length, :dead
+  attr_accessor :length, :dead, :bearing
   def initialize
+    @bearing = 0
     @length = 1
     @dead = false
   end
@@ -17,4 +18,5 @@ class Snake
   def grow 
     self.length += 1
   end
+
 end

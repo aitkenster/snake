@@ -21,4 +21,8 @@ describe Snake do
     nagini.grow
     expect(nagini.length).to eq(2)
   end
+
+  it 'starts off facing north' do 
+    expect(nagini.bearing).to eq(0)
+  end
 end
