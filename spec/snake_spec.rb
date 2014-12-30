@@ -27,7 +27,7 @@ describe Snake do
   end
 
   it 'increases in length' do 
-    nagini.grow(90, 5, 7)
+    nagini.grow({bearing: 90, x_coord: 5, y_coord: 7})
     expect(nagini.vertabrae.length).to eq(2)
   end
 
@@ -37,7 +37,7 @@ describe Snake do
   end
 
    it 'passes positions and bearings along the snake' do
-    nagini.grow(0, 2, 3)
+    nagini.grow({bearing: 0, x_coord: 2, y_coord: 3})
     nagini.vertabrae[0] = lumbar
     nagini.vertabrae[1] = lumbar2
     allow(lumbar).to receive(:get_position).and_return({bearing: 0, x_coord: 3, y_coord: 3})
@@ -72,6 +72,11 @@ describe Snake do
        it 'moves south if facing south' do
          nagini.bearing = 180
          expect(nagini.get_next_move).to eq({bearing: 180, x_coord: 3, y_coord: 2})
+       end
+
+       it 'grows every 5 moves' do 
+        5.times{nagini.move(0, 3, 4)}
+        expect(nagini.vertabrae.length).to eq(2)
        end
 
     end

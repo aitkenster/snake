@@ -1,11 +1,11 @@
 class Snake
 
-  attr_accessor :vertabrae, :dead, :bearing
+  attr_accessor :vertabrae, :dead, :bearing, :moves_till_grow
   def initialize
     @bearing = 0
     @vertabrae = []
     @dead = false
-    grow(@bearing, 3, 3)
+    grow({bearing: @bearing, x_coord: 3, y_coord: 3})
   end
 
   def dead?
@@ -16,8 +16,9 @@ class Snake
     self.dead = true
   end
 
-  def grow(bearing, x_coord, y_coord)
-    @vertabrae.push(Vertabrae.new(bearing, x_coord, y_coord))
+  def grow(position)
+    @vertabrae.push(Vertabrae.new(position[:bearing], position[:x_coord], position[:y_coord]))
+    @moves_till_grow = 4
   end
 
   def change_bearing(bearing)
@@ -26,7 +27,7 @@ class Snake
 
   def move(bearing, x_coord, y_coord)
     next_vertabrae_position = { bearing: bearing, x_coord: x_coord, y_coord: y_coord }
-    @vertabrae.inject(next_vertabrae_position) do | next_vertabrae_position, vertabrae |
+    @vertabrae.each do | vertabrae |
       new_position = { 
         bearing: next_vertabrae_position[:bearing], 
         x_coord: next_vertabrae_position[:x_coord],
@@ -34,8 +35,12 @@ class Snake
       }
       next_vertabrae_position = vertabrae.get_position
       vertabrae.update_position(new_position[:bearing], new_position[:x_coord], new_position[:y_coord])
-      return next_vertabrae_position
     end
+    ready_to_grow? ? grow(next_vertabrae_position) : @moves_till_grow -= 1
+  end
+
+  def ready_to_grow?
+    @moves_till_grow == 0
   end
 
   def get_next_move
