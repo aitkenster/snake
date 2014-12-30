@@ -36,5 +36,23 @@ class Snake
       vertabrae.update_position(new_position[:bearing], new_position[:x_coord], new_position[:y_coord])
       return next_vertabrae_position
     end
- end
+  end
+
+  def get_next_move
+    position = @vertabrae[0].get_position
+    case(@bearing)
+    when 0
+      position[:y_coord] += 1
+    when 90
+      position[:x_coord] += 1
+    when 180
+      position[:y_coord] -= 1
+    when 270
+      position[:x_coord] -= 1
+    else
+      p 'error'
+    end
+    position[:bearing] = @bearing
+    return position
+  end
 end

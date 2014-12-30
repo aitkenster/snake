@@ -46,4 +46,33 @@ describe Snake do
     allow(lumbar2).to receive(:update_position).with(0, 3, 3)
     nagini.move(0, 4, 3)
    end
+
+   describe 'moving' do 
+  
+       before do  
+         allow(lumbar).to receive(:get_position).and_return({bearing: 0, x_coord: 3, y_coord: 3})
+         nagini.vertabrae[0] = lumbar
+       end
+
+       it 'moves west if facing west' do 
+         nagini.bearing = 270
+         expect(nagini.get_next_move).to eq({bearing: 270, x_coord: 2, y_coord: 3})
+       end
+
+       it 'moves east if facing east' do 
+         nagini.bearing = 90
+         expect(nagini.get_next_move).to eq({bearing: 90, x_coord: 4, y_coord: 3})
+       end
+
+       it 'moves north if facing north' do 
+         nagini.bearing = 0
+         expect(nagini.get_next_move).to eq({bearing: 0, x_coord: 3, y_coord: 4})
+       end
+
+       it 'moves south if facing south' do
+         nagini.bearing = 180
+         expect(nagini.get_next_move).to eq({bearing: 180, x_coord: 3, y_coord: 2})
+       end
+
+    end
 end
