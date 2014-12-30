@@ -23,4 +23,18 @@ class Snake
   def change_bearing(bearing)
     self.bearing = bearing
   end
+
+  def move(bearing, x_coord, y_coord)
+    next_vertabrae_position = { bearing: bearing, x_coord: x_coord, y_coord: y_coord }
+    @vertabrae.inject(next_vertabrae_position) do | next_vertabrae_position, vertabrae |
+      new_position = { 
+        bearing: next_vertabrae_position[:bearing], 
+        x_coord: next_vertabrae_position[:x_coord],
+        y_coord: next_vertabrae_position[:y_coord]
+      }
+      next_vertabrae_position = vertabrae.get_position
+      vertabrae.update_position(new_position[:bearing], new_position[:x_coord], new_position[:y_coord])
+      return next_vertabrae_position
+    end
+ end
 end

@@ -12,4 +12,12 @@ class Vertabrae
     self.position[:x_coord] = x_coord
     self.position[:y_coord] = y_coord
   end
+
+  def get_position
+    return { 
+      bearing: direction, 
+      x_coord: @position[:x_coord], 
+      y_coord: @position[:y_coord]
+    }
+  end
 end

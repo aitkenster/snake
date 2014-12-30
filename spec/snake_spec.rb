@@ -3,13 +3,22 @@ require 'snake'
 describe Snake do
 
   let (:nagini) { Snake.new }
+  let (:lumbar) { double :vertabrae, update_position: nil }
+  let (:lumbar2) { double :vertabrae, update_position: nil }
 
-  it 'has 1 vertabrae when created' do
-    expect(nagini.vertabrae.length).to eq(1)
-  end
+  describe 'when created' do
 
-  it 'is alive when created' do 
-    expect(nagini.dead?).to be false
+   it 'has 1 vertabrae' do
+      expect(nagini.vertabrae.length).to eq(1)
+   end
+
+    it'is alive' do 
+      expect(nagini.dead?).to be false
+    end
+
+    it 'faces north' do 
+      expect(nagini.bearing).to eq(0)
+    end
   end
 
   it 'can be killed' do 
@@ -22,12 +31,19 @@ describe Snake do
     expect(nagini.vertabrae.length).to eq(2)
   end
 
-  it 'starts off facing north' do 
-    expect(nagini.bearing).to eq(0)
-  end
-
    it 'can change direction' do 
     nagini.change_bearing(270)
     expect(nagini.bearing).to eq(270)
   end
+
+   it 'passes positions and bearings along the snake' do
+    nagini.grow(0, 2, 3)
+    nagini.vertabrae[0] = lumbar
+    nagini.vertabrae[1] = lumbar2
+    allow(lumbar).to receive(:get_position).and_return({bearing: 0, x_coord: 3, y_coord: 3})
+    allow(lumbar).to receive(:update_position).with(0, 4, 3)
+    allow(lumbar2).to receive(:get_position).and_return({bearing: 0, x_coord: 2, y_coord: 3})
+    allow(lumbar2).to receive(:update_position).with(0, 3, 3)
+    nagini.move(0, 4, 3)
+   end
 end
