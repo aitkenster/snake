@@ -58,6 +58,16 @@ class Snake
       p 'error'
     end
     position[:bearing] = @bearing
+    die_if_offgrid(position)
     return position
+  end
+
+  def die_if_offgrid(position)
+    return if ongrid(position[:x_coord]) && ongrid(position[:y_coord])
+    @dead = true
+  end
+
+  def ongrid(position)
+    position >= 0 && position <= 14
   end
 end
