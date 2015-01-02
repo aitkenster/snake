@@ -1,3 +1,4 @@
+require 'vertabrae'
 class Snake
 
   attr_accessor :vertabrae, :dead, :bearing, :moves_till_grow
@@ -59,6 +60,7 @@ class Snake
     end
     position[:bearing] = @bearing
     die_if_offgrid(position)
+    die_if_cross_path(position)
     return position
   end
 
@@ -69,5 +71,15 @@ class Snake
 
   def ongrid(position)
     position >= 0 && position <= 14
+  end
+
+  def die_if_cross_path(position)
+    match = @vertabrae.find do |vertabrae|
+     vertabrae.get_position[:x_coord] == position[:x_coord] &&
+     vertabrae.get_position[:y_coord] == position[:y_coord]
+    end
+   if match != nil
+     @dead = true
+   end
   end
 end

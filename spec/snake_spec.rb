@@ -81,10 +81,21 @@ describe Snake do
 
     end
 
-  describe 'gameover' do 
-    it 'when the snake goes off the grid boundary' do 
+  describe 'gameover' do
+   
+    before do 
       nagini.vertabrae[0] = lumbar
+    end
+
+    it 'when the snake goes off the grid boundary' do 
       allow(lumbar).to receive(:get_position).and_return({bearing: 0, x_coord: 3, y_coord: 15})
+      nagini.get_next_move
+      expect(nagini.dead).to eq(true)
+    end
+
+    it 'when the snake crosses its own path' do  
+      allow(lumbar).to receive(:get_position).and_return({bearing: 180, x_coord: 3, y_coord: 3})
+      nagini.grow({bearing: 0, x_coord: 3, y_coord: 4})
       nagini.get_next_move
       expect(nagini.dead).to eq(true)
     end
